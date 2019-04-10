@@ -1,0 +1,61 @@
+spring:
+  application:
+    name: small_ics_system
+  datasource:
+    #数据源类型druid
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/small_ics_system?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    #password: WytSBydKRI5TURrBrl2sEvKSoelvh6dzEqo75ujeRlvRHGedKM0Cda1OKzLeob2eyXgtG5sygkKmQIyGUXBsLw==
+    password: KA32QsyyGK+NG2wtge3CqkHmUddxSS1fN4pGB/r4M4GbyORN7CxkTwwXdMhog0V6lZVDwe6i0S7al8snDcWp3w==
+    # 生成的公钥
+    #public-key: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALol3EsDV+KUCcpuJgEEc1rilUkMKB9GgXz6YG0Orvrhyu8cKxmFBPcB9ObokoeY1kayBpSmLfrPNjVMIiPeJzcCAwEAAQ==
+    public-key: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALOxDYwvuiJ/KgK/tTTQMNwM5tlBIm6ak1PgAvEYpAryEY7ndiCLfUZGGyt3zX82UdFRUASCRN6IMzSlndcqQqkCAwEAAQ==
+    druid:
+      #初始化连接大小
+      initial-size: 5
+      #最小连接池数量
+      min-idle: 5
+      #最大连接池数量
+      max-active: 20
+      #获取连接时最大等待时间，单位毫秒
+      max-wait: 60000
+      #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      #配置一个连接在池中最小生存的时间，单位是毫秒
+      min-evictable-idle-time-millis: 300000
+      #测试连接
+      validation-query: SELECT 1 FROM DUAL
+      #申请连接的时候检测，建议配置为true，不影响性能，并且保证安全性
+      test-while-idle: true
+      #获取连接时执行检测，建议关闭，影响性能
+      test-on-borrow: false
+      #归还连接时执行检测，建议关闭，影响性能
+      test-on-return: false
+      #是否开启PSCache，PSCache对支持游标的数据库性能提升巨大，oracle建议开启，mysql下建议关闭
+      pool-prepared-statements: false
+      #开启poolPreparedStatements后生效
+      #max-pool-prepared-statement-per-connection-size: 20
+      #配置扩展插件，常用的插件有=>stat:监控统计   wall:防御sql注入
+      filters: stat,wall
+      #通过connectProperties属性来打开mergeSql功能;慢SQL记录    启用加密，配置公钥。
+      connection-properties: 'druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000;config.decrypt=true;config.decrypt.key=${spring.datasource.public-key}'
+      # 启用ConfigFilter
+      filter:
+        config:
+          enabled: true
+
+logging:
+  level:
+    com.cesecsh.small_ics_system: debug
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
+pagehelper:
+  helper-dialect: mysql
+  page-size-zero: true
+  reasonable: true
+  support-methods-arguments: true
