@@ -1,6 +1,5 @@
 package com.cesecsh.small_ics_system.service;
 
-import com.cesecsh.small_ics_system.mapper.DacChannelMapper;
 import com.cesecsh.small_ics_system.mapper.DacMapper;
 import com.cesecsh.small_ics_system.model.TbDac;
 import com.cesecsh.small_ics_system.model.TbDacChannel;
@@ -42,7 +41,7 @@ public class DacServiceTests {
         List<TbDacChannel> channelList = new ArrayList<>();
         for(int i=0;i<4;i++) {
         	TbDacChannel dacChannel = new TbDacChannel();
-        	dacChannel.setChannel(String.valueOf(i++));
+        	dacChannel.setChannel(String.valueOf(i));
         	dacChannel.setName("test");
         	dacChannel.setType("0");
         	dacChannel.setEnable("0");
