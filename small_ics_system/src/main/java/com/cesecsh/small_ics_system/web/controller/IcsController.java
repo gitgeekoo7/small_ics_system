@@ -12,38 +12,41 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * ics信息controller
+ */
 @RestController
 @RequestMapping("/ics")
 public class IcsController {
     @Autowired
     private IIcsService icsService;
 
-    @RequestMapping("save")
+    @RequestMapping("/save")
     public Result saveIcs(@RequestBody TbIcs ics) {
         icsService.saveIcs(ics);
         return Result.success();
     }
 
-    @RequestMapping("delete")
+    @RequestMapping("/delete")
     public Result deleteIcs(@RequestBody TbIcsVo ics) {
         icsService.deleteIcs(ics.getId());
         return Result.success();
     }
 
-    @RequestMapping("update")
+    @RequestMapping("/update")
     public Result updateIcs(@RequestBody TbIcsVo ics) throws Exception {
         icsService.updateIcs(ics);
         return Result.success();
     }
 
-    @RequestMapping("list")
+    @RequestMapping("/list")
     @Transactional(readOnly = true)
     public Result listIcs(@RequestBody IcsQueryObject queryObject) {
         PageInfo<TbIcs> pageInfo = icsService.listIcs(queryObject);
         return Result.success(pageInfo);
     }
 
-    @RequestMapping("get")
+    @RequestMapping("/get")
     @Transactional(readOnly = true)
     public Result getIcs(@RequestBody IcsQueryObject queryObject) {
         TbIcs ics = icsService.getIcs(queryObject.getId());

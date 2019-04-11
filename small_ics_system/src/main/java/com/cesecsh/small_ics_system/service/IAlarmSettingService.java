@@ -2,7 +2,6 @@ package com.cesecsh.small_ics_system.service;
 
 import com.cesecsh.small_ics_system.dto.TbAlarmSettingDto;
 import com.cesecsh.small_ics_system.model.TbAlarmSetting;
-import com.cesecsh.small_ics_system.model.TbIcs;
 import com.cesecsh.small_ics_system.query.QueryObject;
 import com.github.pagehelper.PageInfo;
 

@@ -1,22 +1,15 @@
 package com.cesecsh.small_ics_system.web.controller;
 
 import com.cesecsh.small_ics_system.model.TbDac;
-import com.cesecsh.small_ics_system.model.TbIcs;
-import com.cesecsh.small_ics_system.query.IcsQueryObject;
 import com.cesecsh.small_ics_system.service.IDacService;
-import com.cesecsh.small_ics_system.service.IIcsService;
 import com.cesecsh.small_ics_system.util.Result;
-import com.cesecsh.small_ics_system.vo.TbIcsVo;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 
-   *  采控器设置Controller
+ * 采控器设置Controller
  */
 @RestController
 @RequestMapping("/dac")
@@ -24,9 +17,9 @@ public class DacController {
     @Autowired
     private IDacService dacService;
 
-    @RequestMapping("save")
+    @RequestMapping("/save")
     public Result saveDac(@RequestBody TbDac dac) {
-    	dacService.saveDac(dac);
+        dacService.saveDac(dac);
         return Result.success();
     }
 

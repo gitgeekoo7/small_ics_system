@@ -11,12 +11,14 @@ import com.cesecsh.small_ics_system.util.TriggerCondition;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 @Service
+@Transactional
 public class AlarmSettingServiceImpl implements IAlarmSettingService {
     @Autowired
     private AlarmSettingMapper alarmSettingMapper;
@@ -46,6 +48,7 @@ public class AlarmSettingServiceImpl implements IAlarmSettingService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PageInfo<TbAlarmSettingDto> listSetting(QueryObject queryObject) {
         queryObject.setDelFlag(DelFlag.UN_DELETED.getKey());
         List<TbAlarmSettingDto> settings = alarmSettingMapper.listSetting(queryObject);
@@ -61,6 +64,7 @@ public class AlarmSettingServiceImpl implements IAlarmSettingService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public TbAlarmSetting getSetting(String id) {
         return alarmSettingMapper.getSetting(id, DelFlag.UN_DELETED.getKey());
     }
