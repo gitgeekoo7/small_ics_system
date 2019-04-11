@@ -2,6 +2,9 @@ package com.cesecsh.small_ics_system.util;
 
 import lombok.Getter;
 
+/**
+ * 删除标志
+ */
 @Getter
 public enum DelFlag {
     UN_DELETED("0", "未删除"),

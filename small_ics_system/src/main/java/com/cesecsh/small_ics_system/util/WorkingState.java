@@ -2,6 +2,9 @@ package com.cesecsh.small_ics_system.util;
 
 import lombok.Getter;
 
+/**
+ * 工作状态
+ */
 @Getter
 public enum WorkingState {
     ON_LINE("0", "在线"),
