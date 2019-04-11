@@ -14,7 +14,7 @@ public interface DacMapper {
             "values (#{id},#{orderNumber},#{address},#{name},#{detail},#{icsId},#{remark},#{delFlag},#{createTime},#{createUserId},#{updateTime},#{updateUserId})")
     void insertDac(TbDac dac);
 
-    /*@Update("update tb_dac set del_flag = #{delFlag},update_time = #{updateTime} " +
+    @Update("update tb_dac set del_flag = #{delFlag},update_time = #{updateTime} " +
             "where id = #{id}")
     void deleteDac(TbDac dac);
 
@@ -26,17 +26,16 @@ public interface DacMapper {
             "</script>")
     TbDac getDac(@Param("id") String id, @Param("delFlag") String delFlag);
 
-    @Update("update tb_dac set name = #{name},code = #{code},remark = #{remark},ip = #{ip},server_ip = #{serverIp},gateway = #{gateway},submask = #{submask},update_time = #{updateTime} " +
+    @Update("update tb_dac set name = #{name},detail = #{detail},remark = #{remark},update_time = #{updateTime} " +
             "where id = #{id}")
     void updateDac(TbDac dac);
 
-    String LIST_CONDITION = "<if test=\"name != null and name.trim != ''\"> and name like concat('%',#{name},'%') </if>" +
-            "<if test=\"ip != null and ip.trim != ''\"> and ip like concat('%',#{ip},'%') </if>";
+    String LIST_CONDITION = "<if test=\"name != null and name.trim != ''\"> and name like concat('%',#{name},'%') </if>";
 
     @Select("<script>" +
             "select * from tb_dac " +
             "where del_flag = #{delFlag} " + LIST_CONDITION +
             "order by create_time desc" +
             "</script>")
-    List<TbDac> listDac(QueryObject queryObject);*/
+    List<TbDac> listDac(QueryObject queryObject);
 }
