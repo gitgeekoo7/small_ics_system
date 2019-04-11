@@ -7,7 +7,6 @@ import com.cesecsh.small_ics_system.util.Result;
 import com.cesecsh.small_ics_system.vo.TbIcsVo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,14 +39,12 @@ public class IcsController {
     }
 
     @RequestMapping("/list")
-    @Transactional(readOnly = true)
     public Result listIcs(@RequestBody IcsQueryObject queryObject) {
         PageInfo<TbIcs> pageInfo = icsService.listIcs(queryObject);
         return Result.success(pageInfo);
     }
 
     @RequestMapping("/get")
-    @Transactional(readOnly = true)
     public Result getIcs(@RequestBody IcsQueryObject queryObject) {
         TbIcs ics = icsService.getIcs(queryObject.getId());
         return Result.success(ics);
