@@ -6,27 +6,27 @@ import com.cesecsh.small_ics_system.query.DacQueryObject;
 import com.cesecsh.small_ics_system.vo.TbDacChannelVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 采控器单元测试
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DacServiceTests {
-	 @Autowired
-	 private IDacService dacService;
+    @Autowired
+    private IDacService dacService;
 
     @Test
     public void textSave() {
-    	
+
         TbDac dac = new TbDac();
         dac.setOrderNumber("01");
         dac.setAddress("151");
@@ -35,23 +35,23 @@ public class DacServiceTests {
         dac.setRemark("测试");
         dac.setIcsId("3fdb438e5ee64a0db7449733e299b869");
         List<TbDacChannel> channelList = new ArrayList<>();
-        for(int i=0;i<4;i++) {
-        	TbDacChannel dacChannel = new TbDacChannel();
-        	dacChannel.setChannel(String.valueOf(i));
-        	dacChannel.setName("test");
-        	dacChannel.setType("0");
-        	dacChannel.setEnable("0");
-        	dacChannel.setState("0");
-        	dacChannel.setData("1A");
-        	channelList.add(dacChannel);
+        for (int i = 0; i < 4; i++) {
+            TbDacChannel dacChannel = new TbDacChannel();
+            dacChannel.setChannel(String.valueOf(i));
+            dacChannel.setName("test");
+            dacChannel.setType("0");
+            dacChannel.setEnable("0");
+            dacChannel.setState("0");
+            dacChannel.setData("1A");
+            channelList.add(dacChannel);
         }
         dac.setChannelList(channelList);
         dacService.saveDac(dac);
     }
 
-   @Test
+    @Test
     public void testDelete() {
-	   dacService.deleteDac("7006520f509d4b67924eefef43f01297");
+        dacService.deleteDac("7006520f509d4b67924eefef43f01297");
     }
 
   /*  @Test
