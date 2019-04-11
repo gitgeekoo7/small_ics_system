@@ -14,19 +14,22 @@ public interface IcsMapper {
             "values (#{id},#{name},#{serial},#{code},#{ip},#{serverIp},#{submask},#{gateway},#{state},#{version},#{remark},#{delFlag},#{createTime},#{createUserId},#{updateTime},#{updateUserId})")
     void insertIcs(TbIcs ics);
 
-    @Update("update tb_ics set del_flag = #{delFlag},update_time = #{updateTime} " +
+    @Update("update tb_ics " +
+            "set del_flag = #{delFlag},update_time = #{updateTime} " +
             "where id = #{id}")
     void deleteIcs(TbIcs ics);
 
     String GET_CONDITION = "<if test=\"delFlag != null and delFlag.trim != ''\"> and del_flag = #{delFlag} </if>";
 
     @Select("<script>" +
-            "select * from tb_ics " +
+            "select * " +
+            "from tb_ics " +
             "where id = #{id} " + GET_CONDITION +
             "</script>")
     TbIcs getIcs(@Param("id") String id, @Param("delFlag") String delFlag);
 
-    @Update("update tb_ics set name = #{name},code = #{code},remark = #{remark},ip = #{ip},server_ip = #{serverIp},gateway = #{gateway},submask = #{submask},update_time = #{updateTime} " +
+    @Update("update tb_ics " +
+            "set name = #{name},code = #{code},remark = #{remark},ip = #{ip},server_ip = #{serverIp},gateway = #{gateway},submask = #{submask},update_time = #{updateTime} " +
             "where id = #{id}")
     void updateIcs(TbIcs ics);
 
@@ -34,9 +37,15 @@ public interface IcsMapper {
             "<if test=\"ip != null and ip.trim != ''\"> and ip like concat('%',#{ip},'%') </if>";
 
     @Select("<script>" +
-            "select * from tb_ics " +
+            "select * " +
+            "from tb_ics " +
             "where del_flag = #{delFlag} " + LIST_CONDITION +
             "order by create_time desc" +
             "</script>")
     List<TbIcs> listIcs(QueryObject queryObject);
+
+    @Select("select * " +
+            "from tb_ics " +
+            "where serial = #{serial}")
+    TbIcs getIcsBySerial(@Param("serial") String serial);
 }

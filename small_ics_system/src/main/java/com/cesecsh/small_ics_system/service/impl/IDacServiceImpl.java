@@ -82,7 +82,7 @@ public class IDacServiceImpl implements IDacService {
 	@Transactional(readOnly = true)
 	public TbDac getDac(String id) {
 		TbDac dac = dacMapper.getDac(id, DelFlag.UN_DELETED.getKey());
-		List<TbDacChannel> channelList = dacChannelMapper.getByDacId(id);
+		List<TbDacChannel> channelList = dacChannelMapper.listByDacId(id);
 		dac.setChannelList(channelList);
 		return dac;
 	}
