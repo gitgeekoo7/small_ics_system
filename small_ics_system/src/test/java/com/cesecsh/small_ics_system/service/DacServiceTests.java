@@ -1,13 +1,9 @@
 package com.cesecsh.small_ics_system.service;
 
-import com.cesecsh.small_ics_system.mapper.DacMapper;
 import com.cesecsh.small_ics_system.model.TbDac;
 import com.cesecsh.small_ics_system.model.TbDacChannel;
-import com.cesecsh.small_ics_system.model.TbIcs;
-import com.cesecsh.small_ics_system.query.IcsQueryObject;
-import com.cesecsh.small_ics_system.util.WorkingState;
-import com.cesecsh.small_ics_system.vo.TbIcsVo;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.cesecsh.small_ics_system.query.DacQueryObject;
+import com.cesecsh.small_ics_system.vo.TbDacChannelVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 
@@ -53,12 +49,12 @@ public class DacServiceTests {
         dacService.saveDac(dac);
     }
 
-    /*@Test
+   @Test
     public void testDelete() {
-        icsService.deleteIcs("3fdb438e5ee64a0db7449733e299b869");
+	   dacService.deleteDac("7006520f509d4b67924eefef43f01297");
     }
 
-    @Test
+  /*  @Test
     public void testUpdate() throws Exception {
         TbIcsVo ics = new TbIcsVo();
         ics.setId("3fdb438e5ee64a0db7449733e299b869");
@@ -70,20 +66,20 @@ public class DacServiceTests {
         ics.setSubmask("255.255.255.0");
         ics.setRemark("编辑测试");
         icsService.updateIcs(ics);
-    }
+    }*/
 
     @Test
     public void testList() throws Exception {
-        IcsQueryObject queryObject = new IcsQueryObject();
+        DacQueryObject queryObject = new DacQueryObject();
         queryObject.setPageSize(10);
         queryObject.setPageNum(1);
-        PageInfo<TbIcs> pageInfo = icsService.listIcs(queryObject);
+        PageInfo<TbDacChannelVo> pageInfo = dacService.listDac(queryObject);
         System.out.println(new ObjectMapper().writeValueAsString(pageInfo));
     }
 
     @Test
     public void testGet() throws Exception {
-        TbIcs ics = icsService.getIcs("3fdb438e5ee64a0db7449733e299b869");
-        System.out.println(new ObjectMapper().writeValueAsString(ics));
-    }*/
+        TbDac dac = dacService.getDac("7006520f509d4b67924eefef43f01297");
+        System.out.println(new ObjectMapper().writeValueAsString(dac));
+    }
 }
