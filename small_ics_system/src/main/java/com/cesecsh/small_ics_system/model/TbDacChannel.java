@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 @Getter
 public class TbDacChannel {
-	
     private String id;//主键
     private String channel;//通道
     private String name;//名称
@@ -18,6 +17,7 @@ public class TbDacChannel {
     private String state;//状态：0关 1开
     private String data;//实时数据
     private String dacId;//所属采控器id
-    
-    
+
+    private String checkRatio;//变比
+    private String checkResistance;//采样电阻
 }
