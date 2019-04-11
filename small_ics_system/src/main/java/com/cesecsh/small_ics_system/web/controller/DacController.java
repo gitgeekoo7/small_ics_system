@@ -7,13 +7,13 @@ import com.cesecsh.small_ics_system.util.Result;
 import com.cesecsh.small_ics_system.vo.TbDacChannelVo;
 import com.cesecsh.small_ics_system.vo.TbDacVo;
 import com.github.pagehelper.PageInfo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 
  * 采控器设置Controller
  */
 @RestController
@@ -24,7 +24,7 @@ public class DacController {
 
     @RequestMapping("/save")
     public Result saveDac(@RequestBody TbDac dac) {
-    	dacService.saveDac(dac);
+        dacService.saveDac(dac);
         return Result.success();
     }
 

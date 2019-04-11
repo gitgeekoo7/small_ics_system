@@ -55,6 +55,7 @@ public class IcsServiceImpl implements IIcsService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PageInfo<TbIcs> listIcs(QueryObject queryObject) {
         queryObject.setDelFlag(DelFlag.UN_DELETED.getKey());
         List<TbIcs> list = icsMapper.listIcs(queryObject);
@@ -66,6 +67,7 @@ public class IcsServiceImpl implements IIcsService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public TbIcs getIcs(String id) {
         return icsMapper.getIcs(id, DelFlag.UN_DELETED.getKey());
     }
