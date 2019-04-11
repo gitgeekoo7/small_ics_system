@@ -61,13 +61,11 @@ public class IDacServiceImpl implements IDacService {
 		BeanUtils.copyProperties(dac, vo);
 		dac.setUpdateTime(new Date());
 		dacMapper.updateDac(dac);
-		//删除原有采控器通道数据，重新添加
-		dacChannelMapper.deleteByDacId(dac.getId());
+		//采控器通道编辑
 		List<TbDacChannel> channelList = dac.getChannelList();
 		for(TbDacChannel channel : channelList) {
-			channel.setId(UUID.randomUUID().toString().replace("-", ""));
-			channel.setDacId(vo.getId());
-			dacChannelMapper.insertDacChannel(channel);
+			
+			dacChannelMapper.updateDacChannel(channel);
 		}
 		
 	}

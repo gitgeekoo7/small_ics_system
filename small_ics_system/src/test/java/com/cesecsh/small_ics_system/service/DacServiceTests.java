@@ -4,6 +4,7 @@ import com.cesecsh.small_ics_system.model.TbDac;
 import com.cesecsh.small_ics_system.model.TbDacChannel;
 import com.cesecsh.small_ics_system.query.DacQueryObject;
 import com.cesecsh.small_ics_system.vo.TbDacChannelVo;
+import com.cesecsh.small_ics_system.vo.TbDacVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import org.junit.Test;
@@ -54,19 +55,23 @@ public class DacServiceTests {
         dacService.deleteDac("7006520f509d4b67924eefef43f01297");
     }
 
-  /*  @Test
+    @Test
     public void testUpdate() throws Exception {
-        TbIcsVo ics = new TbIcsVo();
-        ics.setId("3fdb438e5ee64a0db7449733e299b869");
-        ics.setCode("20000");
-        ics.setName("测试ics编辑");
-        ics.setIp("192.168.0.222");
-        ics.setServerIp("192.168.0.172");
-        ics.setGateway("192.168.0.1");
-        ics.setSubmask("255.255.255.0");
-        ics.setRemark("编辑测试");
-        icsService.updateIcs(ics);
-    }*/
+        TbDacVo dac = new TbDacVo();
+        dac.setId("7006520f509d4b67924eefef43f01297");
+        dac.setName("1号楼20层401灯控");
+        dac.setDetail("弱电井312");
+        dac.setRemark("test11");
+        List<TbDacChannel> channelList = new ArrayList<>();
+        TbDacChannel dacChannel = new TbDacChannel();
+        dacChannel.setId("689d1dca1e45401fa59e2e21dcce4b94");
+        dacChannel.setName("test4");
+        dacChannel.setType("0");
+        dacChannel.setEnable("1");
+        channelList.add(dacChannel);
+        dac.setChannelList(channelList);
+        dacService.updateDac(dac);
+    }
 
     @Test
     public void testList() throws Exception {

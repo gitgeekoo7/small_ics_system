@@ -40,7 +40,7 @@ public interface DacChannelMapper {
             "</script>")
     List<TbDacChannel> getByDacId(@Param("dacId") String dacId);
 
-    @Update("update tb_dac_channel set name = #{name},type = #{type},enable = #{enable},update_time = #{updateTime} " +
+    @Update("update tb_dac_channel set name = #{name},type = #{type},enable = #{enable} " +
             "where id = #{id}")
     void updateDacChannel(TbDacChannel dacChannel);
 
