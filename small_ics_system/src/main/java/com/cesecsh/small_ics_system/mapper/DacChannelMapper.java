@@ -1,15 +1,12 @@
 package com.cesecsh.small_ics_system.mapper;
 
+import com.cesecsh.small_ics_system.dto.TbDacChannelAddupDto;
 import com.cesecsh.small_ics_system.model.TbDac;
 import com.cesecsh.small_ics_system.model.TbDacChannel;
 import com.cesecsh.small_ics_system.query.QueryObject;
 import com.cesecsh.small_ics_system.vo.TbDacChannelVo;
-
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.type.JdbcType;
 
 import java.util.List;
 
@@ -67,4 +64,16 @@ public interface DacChannelMapper {
             "from tb_dac_channel " +
             "where dac_id = #{dacId} and channel = #{channel}")
     TbDacChannel getDacChannelByDacIdAndChannel(@Param("dacId") String dacId, @Param("channel") String channel);
+
+    @Results(id = "AddupResultMap", value = {
+            @Result(id = true, column = "id", property = "id", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "{dacChannelId = id,startDate = start_date,group = group", property = "powers",
+                    many = @Many(select = "com.cesecsh.small_ics_system.mapper.DacChannelPowerMapper.addupPower"))
+    })
+    @Select("select id,`name`,#{startDate} start_date,#{group} `group` " +
+            "from tb_dac_channel " +
+            "where `enable` = #{enableFlag}")
+    List<TbDacChannelAddupDto> addupDacChannel(@Param("enableFlag") String enableFlag,
+                                               @Param("startDate") String startDate,
+                                               @Param("group") String group);
 }

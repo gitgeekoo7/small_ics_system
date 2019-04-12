@@ -1,11 +1,13 @@
 package com.cesecsh.small_ics_system.service.impl;
 
+import com.cesecsh.small_ics_system.dto.TbDacChannelAddupDto;
 import com.cesecsh.small_ics_system.mapper.*;
 import com.cesecsh.small_ics_system.model.TbDac;
 import com.cesecsh.small_ics_system.model.TbDacChannel;
 import com.cesecsh.small_ics_system.model.TbDacChannelPower;
 import com.cesecsh.small_ics_system.model.TbIcs;
 import com.cesecsh.small_ics_system.service.IDacChannelPowerService;
+import com.cesecsh.small_ics_system.util.AddupGroupByType;
 import com.cesecsh.small_ics_system.util.DelFlag;
 import com.cesecsh.small_ics_system.util.EnableFlag;
 import com.cesecsh.small_ics_system.vo.TbDacChannelPowerVo;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -73,5 +76,16 @@ public class DacChannelPowerServiceImpl implements IDacChannelPowerService {
         power.setValue(value);
         power.setCreateTime(new Date());
         dacChannelPowerMapper.insertPower(power);
+    }
+
+    @Override
+    public List<TbDacChannelAddupDto> addupPower(String group) {
+        AddupGroupByType groupByType;
+        try {
+            groupByType = AddupGroupByType.valueOf(group.toUpperCase());
+        } catch (Exception e) {
+            throw new RuntimeException("分组类型不存在");
+        }
+        return dacChannelMapper.addupDacChannel(EnableFlag.ENABLE.getKey(), groupByType.getStartTime(new Date()), groupByType.getGroup());
     }
 }
