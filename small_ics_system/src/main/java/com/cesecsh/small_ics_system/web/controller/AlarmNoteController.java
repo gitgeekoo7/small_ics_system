@@ -21,7 +21,7 @@ public class AlarmNoteController {
 
     @RequestMapping("/save")
     public Result saveNote(@RequestBody TbAlarmNote note) {
-    	alarmNoteService.saveNote(note);
+        alarmNoteService.saveNote(note);
         return Result.success();
     }
 
@@ -30,5 +30,4 @@ public class AlarmNoteController {
         PageInfo<TbAlarmNote> pageInfo = alarmNoteService.listNote(queryObject);
         return Result.success(pageInfo);
     }
-
 }

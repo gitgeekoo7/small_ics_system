@@ -11,8 +11,8 @@ import org.apache.ibatis.type.JdbcType;
 import java.util.List;
 
 public interface DacChannelMapper {
-    @Insert("insert into tb_dac_channel (id,channel,`name`,type,enable,state,data,dac_id,check_ratio,check_resistance) " +
-            "values (#{id},#{channel},#{name},#{type},#{enable},#{state},#{data},#{dacId},#{checkRatio},#{checkResistance})")
+    @Insert("insert into tb_dac_channel (id,channel,`name`,type,enable,state,data,dac_id,check_ratio,check_resistance,address) " +
+            "values (#{id},#{channel},#{name},#{type},#{enable},#{state},#{data},#{dacId},#{checkRatio},#{checkResistance},#{address})")
     void insertDacChannel(TbDacChannel dacChannel);
 
     @Delete("delete from tb_dac_channel where id = #{id}")
@@ -36,6 +36,7 @@ public interface DacChannelMapper {
     @Select("<script>" +
             "select * from tb_dac_channel " +
             "where dac_id = #{dacId} " +
+            "order by channel" +
             "</script>")
     List<TbDacChannel> listByDacId(@Param("dacId") String dacId);
 
@@ -48,14 +49,18 @@ public interface DacChannelMapper {
             "<if test=\"code != null and code.trim != ''\"> and tc.code like concat('%',#{code},'%') </if>" +
             "<if test=\"address != null and address.trim != ''\"> and td.address = #{address} </if>" +
             "<if test=\"channel != null and channel.trim != ''\"> and tdc.channel = #{channel} </if>" +
-            "<if test=\"state != null and state.trim != ''\"> and tdc.state = #{state} </if>";
+            "<if test=\"state != null and state.trim != ''\"><choose> " +
+            "   <when test=\"state == 2\"> and tdc.state = 0 and tdc.data is not null </when>" +
+            "   <when test=\"state == 3\"> and tdc.state = 1 and tdc.data is null </when>" +
+            "   <otherwise> and tdc.state = #{state} </otherwise>" +
+            "</choose></if>";
 
     @Select("<script>" +
-            "select tdc.*,td.`name` as dacName,td.address,tc.`name` as icsName " +
+            "select tdc.*,td.`name` as dacName,td.address,tc.`name` as icsName,tc.state as icsState " +
             "from tb_dac_channel tdc " +
-            "left join tb_dac td on tdc.dac_id = td.id " +
-            "left join tb_ics tc on td.ics_id = tc.id " +
-            "where td.del_flag = #{delFlag} " + LIST_CONDITION +
+            "join tb_dac td on tdc.dac_id = td.id " +
+            "join tb_ics tc on td.ics_id = tc.id " +
+            "where td.del_flag = #{delFlag} and tc.del_flag = #{delFlag} " + LIST_CONDITION +
             "order by td.create_time desc, tdc.channel asc" +
             "</script>")
     List<TbDacChannelVo> listDacChannel(QueryObject queryObject);

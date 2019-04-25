@@ -6,16 +6,16 @@ import lombok.Getter;
 public class Result {
     private String code;//状态码
     private String msg;//提示信息
-    private Object object;
+    private Object data;
 
     public Result(String code, String msg) {
         this(code, msg, null);
     }
 
-    public Result(String code, String msg, Object object) {
+    public Result(String code, String msg, Object data) {
         this.code = code;
         this.msg = msg;
-        this.object = object;
+        this.data = data;
     }
 
     public static Result success() {

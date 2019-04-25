@@ -4,7 +4,6 @@ import com.cesecsh.small_ics_system.dto.TbAlarmSettingDto;
 import com.cesecsh.small_ics_system.model.TbAlarmSetting;
 import com.cesecsh.small_ics_system.query.AlarmSettingQueryObject;
 import com.cesecsh.small_ics_system.util.RunningState;
-import com.cesecsh.small_ics_system.util.TriggerCondition;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import org.junit.Test;
@@ -22,11 +21,10 @@ public class AlarmSettingServiceTests {
     @Test
     public void textSave() {
         TbAlarmSetting setting = new TbAlarmSetting();
+        setting.setName("测试");
         setting.setIcsId("3fdb438e5ee64a0db7449733e299b869");
-        setting.setInputPort("01");
-        setting.setTrigger(TriggerCondition.HIGH_LEVEL.getKey());
-        setting.setOutputPort("01");
-        setting.setAlarmAction(RunningState.OPEN.getKey());
+        setting.setInput("01");
+        setting.setOutput("01");
         setting.setDacId("7006520f509d4b67924eefef43f01297");
         setting.setDacChannelId("689d1dca1e45401fa59e2e21dcce4b94");
         setting.setLinkageAction(RunningState.OPEN.getKey());
@@ -43,10 +41,8 @@ public class AlarmSettingServiceTests {
         TbAlarmSetting setting = new TbAlarmSetting();
         setting.setId("7c733b3ad81b4de39e3d776b370d565a");
         setting.setIcsId("3fdb438e5ee64a0db7449733e299b869");
-        setting.setInputPort("02");
-        setting.setTrigger(TriggerCondition.LOW_LEVEL.getKey());
-        setting.setOutputPort("02");
-        setting.setAlarmAction(RunningState.CLOSE.getKey());
+        setting.setInput("02");
+        setting.setOutput("02");
         setting.setDacId("7006520f509d4b67924eefef43f01297");
         setting.setDacChannelId("8d5fcd73ce24483e88b8fb0197028bda");
         setting.setLinkageAction(RunningState.OPEN.getKey());

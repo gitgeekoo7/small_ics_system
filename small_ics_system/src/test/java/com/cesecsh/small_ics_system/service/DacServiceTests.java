@@ -1,8 +1,10 @@
 package com.cesecsh.small_ics_system.service;
 
+import com.cesecsh.small_ics_system.dto.TbDacDto;
 import com.cesecsh.small_ics_system.model.TbDac;
 import com.cesecsh.small_ics_system.model.TbDacChannel;
 import com.cesecsh.small_ics_system.query.DacQueryObject;
+import com.cesecsh.small_ics_system.util.SensorType;
 import com.cesecsh.small_ics_system.vo.TbDacChannelVo;
 import com.cesecsh.small_ics_system.vo.TbDacVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,7 +42,7 @@ public class DacServiceTests {
             TbDacChannel dacChannel = new TbDacChannel();
             dacChannel.setChannel(String.valueOf(i));
             dacChannel.setName("test");
-            dacChannel.setType("0");
+            dacChannel.setType(SensorType.ENERGY_ACQUISITION.getKey());
             dacChannel.setEnable("0");
             dacChannel.setState("0");
             dacChannel.setData("1A");
@@ -84,7 +86,7 @@ public class DacServiceTests {
 
     @Test
     public void testGet() throws Exception {
-        TbDac dac = dacService.getDac("7006520f509d4b67924eefef43f01297");
+        TbDacDto dac = dacService.getDac("7006520f509d4b67924eefef43f01297");
         System.out.println(new ObjectMapper().writeValueAsString(dac));
     }
 }

@@ -15,6 +15,11 @@ public interface IcsMapper {
     void insertIcs(TbIcs ics);
 
     @Update("update tb_ics " +
+            "set ip = #{ip},server_ip = #{serverIp},submask = #{submask},gateway = #{gateway},state = #{state},version = #{version},update_time = #{updateTime} " +
+            "where id = #{id}")
+    void insertToUpdateIcs(TbIcs ics);
+
+    @Update("update tb_ics " +
             "set del_flag = #{delFlag},update_time = #{updateTime} " +
             "where id = #{id}")
     void deleteIcs(TbIcs ics);
@@ -46,6 +51,6 @@ public interface IcsMapper {
 
     @Select("select * " +
             "from tb_ics " +
-            "where serial = #{serial}")
-    TbIcs getIcsBySerial(@Param("serial") String serial);
+            "where serial = #{serial} and del_flag = #{delFlag}")
+    TbIcs getIcsBySerial(@Param("serial") String serial, @Param("delFlag") String delFlag);
 }

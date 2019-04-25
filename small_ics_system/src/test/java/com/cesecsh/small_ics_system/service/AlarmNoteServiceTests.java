@@ -3,7 +3,6 @@ package com.cesecsh.small_ics_system.service;
 import com.cesecsh.small_ics_system.model.TbAlarmNote;
 import com.cesecsh.small_ics_system.query.AlarmNoteQueryObject;
 import com.cesecsh.small_ics_system.util.RunningState;
-import com.cesecsh.small_ics_system.util.TriggerCondition;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import org.junit.Test;
@@ -22,10 +21,9 @@ public class AlarmNoteServiceTests {
     public void textSave() {
         TbAlarmNote note = new TbAlarmNote();
         note.setIcsId("3fdb438e5ee64a0db7449733e299b869");
-        note.setInputPort("01");
-        note.setTrigger(TriggerCondition.HIGH_LEVEL.getKey());
-        note.setOutputPort("01");
-        note.setAlarmAction(RunningState.OPEN.getKey());
+        note.setInput("01");
+        note.setThreshold(11);
+        note.setOutput("01");
         note.setDacId("7006520f509d4b67924eefef43f01297");
         note.setDacChannelId("689d1dca1e45401fa59e2e21dcce4b94");
         note.setLinkageAction(RunningState.OPEN.getKey());

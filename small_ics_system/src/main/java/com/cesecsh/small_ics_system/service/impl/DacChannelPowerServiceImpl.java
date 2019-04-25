@@ -37,12 +37,9 @@ public class DacChannelPowerServiceImpl implements IDacChannelPowerService {
     public void savePower(TbDacChannelPowerVo vo) {
         //目标：将上传的power值（vo.getPower()）转换为能耗值
         //1.获取ics控制id
-        TbIcs ics = icsMapper.getIcsBySerial(vo.getSerial());
+        TbIcs ics = icsMapper.getIcsBySerial(vo.getSerial(), DelFlag.UN_DELETED.getKey());
         if (null == ics) {
             throw new RuntimeException("控制器不存在");
-        }
-        if (DelFlag.DELETED.getKey().equals(ics.getDelFlag())) {
-            throw new RuntimeException("控制器已被删除");
         }
 
         //2.获取dac采集器id

@@ -6,9 +6,6 @@ import lombok.Setter;
 @Setter
 @Getter
 public class AlarmNoteQueryObject extends QueryObject {
-	
-   
     private String dacChannelName;
-
-    private String trigger;
+    private String icsName;
 }

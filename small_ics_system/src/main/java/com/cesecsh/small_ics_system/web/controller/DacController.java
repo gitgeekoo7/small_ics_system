@@ -1,5 +1,6 @@
 package com.cesecsh.small_ics_system.web.controller;
 
+import com.cesecsh.small_ics_system.dto.TbDacDto;
 import com.cesecsh.small_ics_system.model.TbDac;
 import com.cesecsh.small_ics_system.query.DacQueryObject;
 import com.cesecsh.small_ics_system.service.IDacService;
@@ -7,7 +8,6 @@ import com.cesecsh.small_ics_system.util.Result;
 import com.cesecsh.small_ics_system.vo.TbDacChannelVo;
 import com.cesecsh.small_ics_system.vo.TbDacVo;
 import com.github.pagehelper.PageInfo;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,13 +30,13 @@ public class DacController {
 
     @RequestMapping("/delete")
     public Result deleteDac(@RequestBody TbDacVo dac) {
-    	dacService.deleteDac(dac.getId());
+        dacService.deleteDac(dac.getId());
         return Result.success();
     }
 
     @RequestMapping("/update")
     public Result updateDac(@RequestBody TbDacVo dac) throws Exception {
-    	 dacService.updateDac(dac);
+        dacService.updateDac(dac);
         return Result.success();
     }
 
@@ -47,8 +47,8 @@ public class DacController {
     }
 
     @RequestMapping("/get")
-    public Result getIcs(@RequestBody DacQueryObject queryObject) {
-        TbDac dac = dacService.getDac(queryObject.getId());
+    public Result getIcs(@RequestBody DacQueryObject queryObject) throws Exception {
+        TbDacDto dac = dacService.getDac(queryObject.getId());
         return Result.success(dac);
     }
 }

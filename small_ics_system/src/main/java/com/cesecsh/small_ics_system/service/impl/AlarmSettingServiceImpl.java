@@ -7,7 +7,6 @@ import com.cesecsh.small_ics_system.query.QueryObject;
 import com.cesecsh.small_ics_system.service.IAlarmSettingService;
 import com.cesecsh.small_ics_system.util.DelFlag;
 import com.cesecsh.small_ics_system.util.RunningState;
-import com.cesecsh.small_ics_system.util.TriggerCondition;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +29,7 @@ public class AlarmSettingServiceImpl implements IAlarmSettingService {
         setting.setCreateTime(new Date());
         setting.setUpdateTime(new Date());
         alarmSettingMapper.insertSetting(setting);
+        //todo 下发报警设置
     }
 
     @Override
@@ -39,12 +39,14 @@ public class AlarmSettingServiceImpl implements IAlarmSettingService {
         setting.setDelFlag(DelFlag.DELETED.getKey());
         setting.setUpdateTime(new Date());
         alarmSettingMapper.deleteSetting(setting);
+        //todo 清除报警设置
     }
 
     @Override
     public void updateSetting(TbAlarmSetting setting) {
         setting.setUpdateTime(new Date());
         alarmSettingMapper.updateSetting(setting);
+        //todo 下发报警设置 同一个输入端口的是否覆盖？
     }
 
     @Override
@@ -53,11 +55,7 @@ public class AlarmSettingServiceImpl implements IAlarmSettingService {
         queryObject.setDelFlag(DelFlag.UN_DELETED.getKey());
         List<TbAlarmSettingDto> settings = alarmSettingMapper.listSetting(queryObject);
         for (TbAlarmSetting setting : settings) {
-            String value = TriggerCondition.getValueByKey(setting.getTrigger());
-            setting.setTrigger(value);
-            value = RunningState.getValueByKey(setting.getAlarmAction());
-            setting.setAlarmAction(value);
-            value = RunningState.getValueByKey(setting.getLinkageAction());
+            String value = RunningState.getValueByKey(setting.getLinkageAction());
             setting.setLinkageAction(value);
         }
         return new PageInfo<>(settings);

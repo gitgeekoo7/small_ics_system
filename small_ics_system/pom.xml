@@ -21,6 +21,7 @@
         <collections.version>3.2.1</collections.version>
         <pagehelper.version>1.2.3</pagehelper.version>
         <druid.version>1.1.10</druid.version>
+        <easypoi.version>3.2.0</easypoi.version>
     </properties>
 
     <dependencies>
@@ -89,6 +90,23 @@
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>${druid.version}</version>
+        </dependency>
+
+        <!-- easy-poi -->
+        <dependency>
+            <groupId>cn.afterturn</groupId>
+            <artifactId>easypoi-base</artifactId>
+            <version>${easypoi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.afterturn</groupId>
+            <artifactId>easypoi-web</artifactId>
+            <version>${easypoi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.afterturn</groupId>
+            <artifactId>easypoi-annotation</artifactId>
+            <version>${easypoi.version}</version>
         </dependency>
     </dependencies>
 

@@ -47,4 +47,9 @@ public interface DacMapper {
             "from tb_dac " +
             "where ics_id = #{icsId} and address = #{address}")
     TbDac getDacByIcsIdAndAddress(@Param("icsId") String icsId, @Param("address") String address);
+
+    @Select("select * " +
+            "from tb_dac " +
+            "where ics_id = #{icsId} and del_flag = #{delFlag}")
+    List<TbDac> listDacByIcsId(@Param("icsId") String icsId, @Param("delFlag") String delFlag);
 }

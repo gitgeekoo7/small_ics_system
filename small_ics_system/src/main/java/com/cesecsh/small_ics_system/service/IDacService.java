@@ -1,14 +1,16 @@
 package com.cesecsh.small_ics_system.service;
 
+import com.cesecsh.small_ics_system.dto.TbDacDto;
 import com.cesecsh.small_ics_system.model.TbDac;
 import com.cesecsh.small_ics_system.query.QueryObject;
 import com.cesecsh.small_ics_system.vo.TbDacChannelVo;
 import com.cesecsh.small_ics_system.vo.TbDacVo;
-import com.cesecsh.small_ics_system.vo.TbIcsVo;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+
 public interface IDacService {
-	
+
     void saveDac(TbDac dac);
 
     void deleteDac(String id);
@@ -17,5 +19,7 @@ public interface IDacService {
 
     PageInfo<TbDacChannelVo> listDac(QueryObject queryObject);
 
-    TbDac getDac(String id);
+    TbDacDto getDac(String id) throws Exception;
+
+    List<TbDac> listDacByIcsId(String id);
 }

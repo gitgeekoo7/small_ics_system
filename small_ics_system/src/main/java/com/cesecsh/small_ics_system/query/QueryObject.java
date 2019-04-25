@@ -9,6 +9,6 @@ public class QueryObject {
     private String id;
     private String delFlag;
 
-    private Integer pageSize;
-    private Integer pageNum;
+    private Integer pageSize = 0;
+    private Integer pageNum = 0;
 }

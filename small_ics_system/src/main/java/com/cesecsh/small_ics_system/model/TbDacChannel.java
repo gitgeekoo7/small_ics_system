@@ -20,4 +20,6 @@ public class TbDacChannel {
 
     private String checkRatio;//变比
     private String checkResistance;//采样电阻
+
+    private String address;
 }

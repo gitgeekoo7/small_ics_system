@@ -10,6 +10,6 @@ public class AlarmSettingQueryObject extends QueryObject {
     private String dacName;
     private String dacChannelName;
 
-    private String inputPort;
-    private String outputPort;
+    private String input;
+    private String output;
 }

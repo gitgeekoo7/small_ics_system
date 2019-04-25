@@ -1,6 +1,7 @@
 package com.cesecsh.small_ics_system.service;
 
 import com.cesecsh.small_ics_system.model.TbIcs;
+import com.cesecsh.small_ics_system.model.TbIcsData;
 import com.cesecsh.small_ics_system.query.QueryObject;
 import com.cesecsh.small_ics_system.vo.TbIcsVo;
 import com.github.pagehelper.PageInfo;

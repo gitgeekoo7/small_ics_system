@@ -4,7 +4,6 @@ import com.cesecsh.small_ics_system.model.TbIcs;
 import com.cesecsh.small_ics_system.query.IcsQueryObject;
 import com.cesecsh.small_ics_system.util.WorkingState;
 import com.cesecsh.small_ics_system.vo.TbIcsVo;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import org.junit.Test;
@@ -18,6 +17,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class IcsServiceTests {
     @Autowired
     private IIcsService icsService;
+
+    @Test
+    public void iter() {
+        for (int i = 0; i < 20; i++) {
+            textSave();
+        }
+    }
 
     @Test
     public void textSave() {
@@ -37,7 +43,7 @@ public class IcsServiceTests {
 
     @Test
     public void testDelete() {
-        icsService.deleteIcs("3fdb438e5ee64a0db7449733e299b869");
+        icsService.deleteIcs("63c69ddb10a04dbcb927b597502ec80f");
     }
 
     @Test
