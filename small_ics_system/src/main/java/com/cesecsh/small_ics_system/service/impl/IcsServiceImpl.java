@@ -13,6 +13,7 @@ import com.cesecsh.small_ics_system.util.WorkingState;
 import com.cesecsh.small_ics_system.vo.TbIcsVo;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -107,6 +108,19 @@ public class IcsServiceImpl implements IIcsService {
         queryObject.setDelFlag(DelFlag.UN_DELETED.getKey());
         List<TbIcs> list = icsMapper.listIcs(queryObject);
         for (TbIcs ics : list) {
+            TbIcsData data = icsDataService.getData(ics.getId());
+            if (StringUtils.isNotBlank(data.getData())) {
+                if ("error".equals(data.getData())) {
+                    ics.setData("错误!!!");
+                } else {
+                    if (StringUtils.isNotBlank(data.getName())) {
+                        ics.setData(data.getName() + ":" + data.getData() + data.getUnit());
+                    } else {
+                        ics.setData(data.getData());
+                    }
+                }
+                ics.setData(data.getName() + ":" + data.getData() + data.getUnit());
+            }
             String value = WorkingState.getValueByKey(ics.getState());
             ics.setState(value);
         }
@@ -117,5 +131,17 @@ public class IcsServiceImpl implements IIcsService {
     @Transactional(readOnly = true)
     public TbIcs getIcs(String id) {
         return icsMapper.getIcs(id, DelFlag.UN_DELETED.getKey());
+    }
+
+    @Override
+    public void saveData(String serial, String value) {
+        //获取ICS信息
+        TbIcs ics = icsMapper.getIcsBySerial(serial, DelFlag.UN_DELETED.getKey());
+        if (null == ics) {
+            throw new RuntimeException("该ICS不存在");
+        }
+        TbIcsData data = icsDataService.getData(ics.getId());
+        String check = icsDataService.getCheckValueByIcsDataIdAndReciveValue(data.getId(), value);
+        icsDataService.saveDataValue(data.getId(), check);
     }
 }

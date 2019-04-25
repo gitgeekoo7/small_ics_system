@@ -10,7 +10,13 @@ public interface IIcsDataService {
 
     void updateData(TbIcsData data);
 
+    TbIcsData getData(String icsId);
+
+    String getCheckValueByIcsDataIdAndReciveValue(String icsDataId, String reciveValue);
+
     void importData(List<TbIcsDataExcelVo> list, String icsDataId);
 
     List<TbIcsDataExcelVo> exportData(String icsDataId);
+
+    void saveDataValue(String id, String data);
 }

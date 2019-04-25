@@ -20,11 +20,11 @@ public class IcsController {
     @Autowired
     private IIcsService icsService;
 
-    @RequestMapping("/save")
-    public Result saveIcs(@RequestBody TbIcs ics) {
-        icsService.saveIcs(ics);
-        return Result.success();
-    }
+//    @RequestMapping("/save")
+//    public Result saveIcs(@RequestBody TbIcs ics) {
+//        icsService.saveIcs(ics);
+//        return Result.success();
+//    }
 
     @RequestMapping("/delete")
     public Result deleteIcs(@RequestBody TbIcsVo ics) {

@@ -16,6 +16,11 @@ public interface IcsDataMapper {
             "where id = #{id}")
     void update(TbIcsData data);
 
+    @Select("select * " +
+            "from tb_ics_data " +
+            "where ics_id = #{icsId}")
+    TbIcsData getDataByIcsId(String icsId);
+
     @Insert("insert into tb_ics_data_check (id,ics_data_id,recive_value,check_value) " +
             "values (#{id},#{ics_data_id},#{recive_value},#{check_value})")
     void insertDataCheck(TbIcsDataVo data);
@@ -28,4 +33,14 @@ public interface IcsDataMapper {
     @Delete("delete from tb_ics_data_check " +
             "where id = #{id}")
     void deleteDataCheck(@Param("id") String id);
+
+    @Select("select check_value " +
+            "from tb_ics_data_check " +
+            "where ics_data_id = #{icsDataId} and recive_value = #{reciveValue}")
+    String getCheckValueByIcsDataIdAndReciveValue(@Param("icsDataId") String icsDataId, @Param("reciveValue") String reciveValue);
+
+    @Update("update tb_ics_data " +
+            "set data = #{data} " +
+            "where id = #{id}")
+    void saveDataValue(@Param("id") String id, @Param("data") String data);
 }

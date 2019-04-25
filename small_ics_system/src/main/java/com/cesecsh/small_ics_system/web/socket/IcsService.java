@@ -30,4 +30,14 @@ public class IcsService {
             return false;
         }
     }
+
+    public static boolean saveData(String serial, String value) {
+        try {
+            service.saveData(serial, value);
+            return true;
+        } catch (Exception e) {
+            log.error("ICS信息上传失败", e);
+            return false;
+        }
+    }
 }

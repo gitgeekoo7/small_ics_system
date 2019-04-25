@@ -32,6 +32,12 @@ public class IcsDataController {
         return Result.success();
     }
 
+    @RequestMapping("/get")
+    public Result getData(@RequestBody TbIcsData data) {
+        data = icsDataService.getData(data.getIcsId());
+        return Result.success(data);
+    }
+
     @RequestMapping("/exportTemplate")
     public void exportTemplate(HttpServletResponse response) throws Exception {
         List<TbIcsDataExcelVo> list = new ArrayList<>();

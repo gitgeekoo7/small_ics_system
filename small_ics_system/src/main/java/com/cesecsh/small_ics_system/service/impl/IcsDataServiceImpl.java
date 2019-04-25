@@ -5,6 +5,7 @@ import com.cesecsh.small_ics_system.model.TbIcsData;
 import com.cesecsh.small_ics_system.service.IIcsDataService;
 import com.cesecsh.small_ics_system.vo.TbIcsDataExcelVo;
 import com.cesecsh.small_ics_system.vo.TbIcsDataVo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,17 @@ public class IcsDataServiceImpl implements IIcsDataService {
     public void updateData(TbIcsData data) {
         data.setUpdateTime(new Date());
         icsDataMapper.update(data);
+    }
+
+    @Override
+    public TbIcsData getData(String icsId) {
+        return icsDataMapper.getDataByIcsId(icsId);
+    }
+
+    @Override
+    public String getCheckValueByIcsDataIdAndReciveValue(String icsDataId, String reciveValue) {
+        String checkValue = icsDataMapper.getCheckValueByIcsDataIdAndReciveValue(icsDataId, reciveValue);
+        return StringUtils.isBlank(checkValue) ? "error" : checkValue;
     }
 
     @Override
@@ -68,5 +80,10 @@ public class IcsDataServiceImpl implements IIcsDataService {
             list.add(vo);
         }
         return list;
+    }
+
+    @Override
+    public void saveDataValue(String id, String data) {
+        icsDataMapper.saveDataValue(id, data);
     }
 }

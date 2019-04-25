@@ -14,7 +14,7 @@ public class SmallIcsSystemApplicationTests {
     @Test
     public void testSocketSaveIcs() {
         TbIcsSocketVo vo = new TbIcsSocketVo();
-        vo.setSerial("66666666");
+        vo.setSerial("77777777");
         vo.setIp("192.168.0.111");
         vo.setServerIp("192.168.0.172");
         vo.setGateway("192.168.0.1");

@@ -19,4 +19,6 @@ public class TbIcs extends BaseObject {
     private String state;//状态：0在线 1离线
     private String version;//嵌入式版本
     private String remark;//备注
+
+    private String data;
 }
