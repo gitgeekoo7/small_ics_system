@@ -1,6 +1,7 @@
 package com.cesecsh.small_ics_system.socket.work;
 
 import com.cesecsh.small_ics_system.socket.util.BinaryConversion;
+import com.cesecsh.small_ics_system.web.socket.IcsService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ExecutorService;
@@ -77,6 +78,12 @@ public class TcpMsgWork {
                 case "0303":{
                     // TODO Auto-generated catch block
                     // 此处固定电阻=10，变比=2000
+//                    IcsService.saveData(serial,address,value);
+                    break;
+                }
+                //AD通道值
+                case "FFFF":{
+                    IcsService.saveData(serial,value);
                     break;
                 }
                 //门禁状态
@@ -89,11 +96,6 @@ public class TcpMsgWork {
                 case "0603":
                 //风扇状态
                 case "0903":
-                //AD通道值
-                case "FFFF":{
-                    // TODO Auto-generated catch block
-                    break;
-                }
                 default:
                     break;
             }
