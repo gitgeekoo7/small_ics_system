@@ -78,13 +78,23 @@ public class TcpMsgWork {
                 case "0303":{
                     // TODO Auto-generated catch block
                     // 此处固定电阻=10，变比=2000
-//                    IcsService.saveData(serial,address,value);
+                    // IcsService.saveData(serial,address,value);
                     break;
                 }
                 //AD通道值
                 case "FFFF":{
                     IcsService.saveData(serial,value);
                     break;
+                }
+                //按钮状态
+                case "0301":{
+                    // TODO
+                    // serial+address
+                }
+                //门磁状态
+                case "0601":{
+                    // TODO
+                    // serial+address
                 }
                 //门禁状态
                 case "0501":
