@@ -5,13 +5,13 @@ spring:
     #数据源类型druid
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.0.69:3306/small_ics_system?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://192.168.0.172:3306/small_ics_system?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
-    #password: WytSBydKRI5TURrBrl2sEvKSoelvh6dzEqo75ujeRlvRHGedKM0Cda1OKzLeob2eyXgtG5sygkKmQIyGUXBsLw==
-    password: KA32QsyyGK+NG2wtge3CqkHmUddxSS1fN4pGB/r4M4GbyORN7CxkTwwXdMhog0V6lZVDwe6i0S7al8snDcWp3w==
+    password: WytSBydKRI5TURrBrl2sEvKSoelvh6dzEqo75ujeRlvRHGedKM0Cda1OKzLeob2eyXgtG5sygkKmQIyGUXBsLw==
+    #password: KA32QsyyGK+NG2wtge3CqkHmUddxSS1fN4pGB/r4M4GbyORN7CxkTwwXdMhog0V6lZVDwe6i0S7al8snDcWp3w==
     # 生成的公钥
-    #public-key: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALol3EsDV+KUCcpuJgEEc1rilUkMKB9GgXz6YG0Orvrhyu8cKxmFBPcB9ObokoeY1kayBpSmLfrPNjVMIiPeJzcCAwEAAQ==
-    public-key: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALOxDYwvuiJ/KgK/tTTQMNwM5tlBIm6ak1PgAvEYpAryEY7ndiCLfUZGGyt3zX82UdFRUASCRN6IMzSlndcqQqkCAwEAAQ==
+    public-key: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALol3EsDV+KUCcpuJgEEc1rilUkMKB9GgXz6YG0Orvrhyu8cKxmFBPcB9ObokoeY1kayBpSmLfrPNjVMIiPeJzcCAwEAAQ==
+    #public-key: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALOxDYwvuiJ/KgK/tTTQMNwM5tlBIm6ak1PgAvEYpAryEY7ndiCLfUZGGyt3zX82UdFRUASCRN6IMzSlndcqQqkCAwEAAQ==
     druid:
       #初始化连接大小
       initial-size: 5
