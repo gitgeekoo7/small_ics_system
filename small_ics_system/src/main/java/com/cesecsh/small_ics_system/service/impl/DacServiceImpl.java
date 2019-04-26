@@ -7,7 +7,7 @@ import com.cesecsh.small_ics_system.mapper.IcsMapper;
 import com.cesecsh.small_ics_system.model.TbDac;
 import com.cesecsh.small_ics_system.model.TbDacChannel;
 import com.cesecsh.small_ics_system.model.TbIcs;
-import com.cesecsh.small_ics_system.query.QueryObject;
+import com.cesecsh.small_ics_system.query.DacQueryObject;
 import com.cesecsh.small_ics_system.service.IDacService;
 import com.cesecsh.small_ics_system.util.DelFlag;
 import com.cesecsh.small_ics_system.util.EnableFlag;
@@ -29,11 +29,11 @@ import java.util.UUID;
 @Service
 @Transactional
 public class DacServiceImpl implements IDacService {
-
     @Autowired
     private DacMapper dacMapper;
     @Autowired
     private DacChannelMapper dacChannelMapper;
+
     @Autowired
     private IcsMapper icsMapper;
 
@@ -80,14 +80,20 @@ public class DacServiceImpl implements IDacService {
         dac.setUpdateTime(new Date());
         dacMapper.deleteDac(dac);
 
+        //禁用所有通道
+        dacChannelMapper.deleteByDacId(id, EnableFlag.DISABLE.getKey());
     }
 
     @Override
     public void updateDac(TbDacVo vo) throws Exception {
-        TbDac dac = dacMapper.getDac(vo.getId(), null);
+        TbDac dac = dacMapper.getDac(vo.getId(), DelFlag.UN_DELETED.getKey());
+        if (null == dac) {
+            throw new RuntimeException("采控器不存在");
+        }
         BeanUtils.copyProperties(dac, vo);
         dac.setUpdateTime(new Date());
         dacMapper.updateDac(dac);
+
         //采控器通道编辑
         List<TbDacChannel> channelList = dac.getChannelList();
         for (TbDacChannel channel : channelList) {
@@ -98,7 +104,8 @@ public class DacServiceImpl implements IDacService {
 
     @Override
     @Transactional(readOnly = true)
-    public PageInfo<TbDacChannelVo> listDac(QueryObject queryObject) {
+    public PageInfo<TbDacChannelVo> listDac(DacQueryObject queryObject) {
+        queryObject.setEnable(EnableFlag.ENABLE.getKey());
         queryObject.setDelFlag(DelFlag.UN_DELETED.getKey());
         List<TbDacChannelVo> list = dacChannelMapper.listDacChannel(queryObject);
         for (TbDacChannelVo vo : list) {
@@ -120,12 +127,15 @@ public class DacServiceImpl implements IDacService {
     @Override
     @Transactional(readOnly = true)
     public TbDacDto getDac(String id) throws Exception {
-        TbDacDto dto = new TbDacDto();
         TbDac dac = dacMapper.getDac(id, DelFlag.UN_DELETED.getKey());
+        if (null == dac) {
+            throw new RuntimeException("采控器不存在");
+        }
         List<TbDacChannel> channelList = dacChannelMapper.listByDacId(id);
+        TbDacDto dto = new TbDacDto();
         BeanUtils.copyProperties(dto, dac);
         dto.setChannelList(channelList);
-        TbIcs ics = icsMapper.getIcs(dac.getIcsId(), null);
+        TbIcs ics = icsMapper.getIcs(dac.getIcsId(), DelFlag.UN_DELETED.getKey());
         dto.setIcsName(ics.getName());
         dto.setIcsIp(ics.getIp());
         return dto;
@@ -135,5 +145,4 @@ public class DacServiceImpl implements IDacService {
     public List<TbDac> listDacByIcsId(String icsId) {
         return dacMapper.listDacByIcsId(icsId, DelFlag.UN_DELETED.getKey());
     }
-
 }

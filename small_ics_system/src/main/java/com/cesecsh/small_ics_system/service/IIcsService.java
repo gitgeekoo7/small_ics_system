@@ -17,4 +17,10 @@ public interface IIcsService {
     TbIcs getIcs(String id);
 
     void saveData(String serial, String value);
+
+    void restartIcs(String serial);
+
+    void timingIcs(String serial);
+
+    void updateIcsState(String serial, String state);
 }

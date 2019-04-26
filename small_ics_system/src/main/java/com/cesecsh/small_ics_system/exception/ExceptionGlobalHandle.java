@@ -11,6 +11,6 @@ public class ExceptionGlobalHandle {
     @ExceptionHandler
     public Result handle(Exception e) {
         log.error("", e);
-        return Result.error();
+        return Result.error(e.getMessage());
     }
 }

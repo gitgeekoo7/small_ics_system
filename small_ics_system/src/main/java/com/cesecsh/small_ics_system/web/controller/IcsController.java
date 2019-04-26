@@ -49,4 +49,16 @@ public class IcsController {
         TbIcs ics = icsService.getIcs(queryObject.getId());
         return Result.success(ics);
     }
+
+    @RequestMapping("/restart")
+    public Result restartIcs(@RequestBody IcsQueryObject queryObject) {
+        icsService.restartIcs(queryObject.getSerial());
+        return Result.success();
+    }
+
+    @RequestMapping("/timing")
+    public Result timingIcs(@RequestBody IcsQueryObject queryObject) {
+        icsService.timingIcs(queryObject.getSerial());
+        return Result.success();
+    }
 }

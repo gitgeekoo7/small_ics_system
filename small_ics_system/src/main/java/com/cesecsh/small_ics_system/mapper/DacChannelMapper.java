@@ -21,8 +21,10 @@ public interface DacChannelMapper {
     /**
      * 根据所属采控器删除
      */
-    @Delete("delete from tb_dac_channel where dac_id = #{dacId}")
-    void deleteByDacId(@Param("dacId") String dacId);
+    @Update("update tb_dac_channel" +
+            "set `enable` = #{enable} " +
+            "where dac_id = #{dacId}")
+    void deleteByDacId(@Param("dacId") String dacId, @Param("enable") String enable);
 
     @Select("<script>" +
             "select * from tb_dac_channel " +
@@ -56,12 +58,12 @@ public interface DacChannelMapper {
             "</choose></if>";
 
     @Select("<script>" +
-            "select tdc.*,td.`name` as dacName,td.address,tc.`name` as icsName,tc.state as icsState " +
+            "select tdc.*,td.name dac_name,td.address dac_address,tc.name ics_name,tc.state ics_state " +
             "from tb_dac_channel tdc " +
             "join tb_dac td on tdc.dac_id = td.id " +
             "join tb_ics tc on td.ics_id = tc.id " +
-            "where td.del_flag = #{delFlag} and tc.del_flag = #{delFlag} " + LIST_CONDITION +
-            "order by td.create_time desc, tdc.channel asc" +
+            "where tdc.enable = #{enable} and td.del_flag = #{delFlag} " + LIST_CONDITION +
+            "order by tc.create_time desc, td.address, tdc.channel" +
             "</script>")
     List<TbDacChannelVo> listDacChannel(QueryObject queryObject);
 

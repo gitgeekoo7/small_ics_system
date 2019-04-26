@@ -8,6 +8,7 @@ import com.cesecsh.small_ics_system.query.QueryObject;
 import com.cesecsh.small_ics_system.service.IDacService;
 import com.cesecsh.small_ics_system.service.IIcsDataService;
 import com.cesecsh.small_ics_system.service.IIcsService;
+import com.cesecsh.small_ics_system.socket.util.IcsMsgUtil;
 import com.cesecsh.small_ics_system.util.DelFlag;
 import com.cesecsh.small_ics_system.util.WorkingState;
 import com.cesecsh.small_ics_system.vo.TbIcsVo;
@@ -89,7 +90,7 @@ public class IcsServiceImpl implements IIcsService {
     public void updateIcs(TbIcsVo vo) throws Exception {
         TbIcs icsInDb = icsMapper.getIcs(vo.getId(), DelFlag.UN_DELETED.getKey());
         if (null == icsInDb) {
-            throw new RuntimeException("该ICS不存在");
+            throw new RuntimeException("ICS不存在");
         }
         TbIcs ics = new TbIcs();
         BeanUtils.copyProperties(ics, vo);
@@ -98,7 +99,12 @@ public class IcsServiceImpl implements IIcsService {
         //IP修改，给下位机下发修改IP指令，硬件后行--如果修改失败可以回滚
         if (!icsInDb.getIp().equals(ics.getIp()) || !icsInDb.getServerIp().equals(ics.getServerIp()) ||
                 !icsInDb.getGateway().equals(ics.getGateway()) || !icsInDb.getSubmask().equals(ics.getSubmask())) {
-            //todo 调用修改IP接口
+            if (WorkingState.OFF_LINE.getKey().equals(icsInDb.getState())) {
+                throw new RuntimeException("ICS不在线,无法修改IP");
+            }
+            if (!IcsMsgUtil.changeIcsIp(icsInDb.getSerial(), ics.getServerIp(), ics.getIp(), ics.getGateway(), ics.getSubmask())) {
+                throw new RuntimeException("修改IP指令发送失败");
+            }
         }
     }
 
@@ -119,7 +125,6 @@ public class IcsServiceImpl implements IIcsService {
                         ics.setData(data.getData());
                     }
                 }
-                ics.setData(data.getName() + ":" + data.getData() + data.getUnit());
             }
             String value = WorkingState.getValueByKey(ics.getState());
             ics.setState(value);
@@ -138,10 +143,50 @@ public class IcsServiceImpl implements IIcsService {
         //获取ICS信息
         TbIcs ics = icsMapper.getIcsBySerial(serial, DelFlag.UN_DELETED.getKey());
         if (null == ics) {
-            throw new RuntimeException("该ICS不存在");
+            throw new RuntimeException("ICS不存在");
         }
+        //获取输入配置
         TbIcsData data = icsDataService.getData(ics.getId());
+        //获取实际值
         String check = icsDataService.getCheckValueByIcsDataIdAndReciveValue(data.getId(), value);
+        //保存实时数据
         icsDataService.saveDataValue(data.getId(), check);
+    }
+
+    @Override
+    public void restartIcs(String serial) {
+        TbIcs ics = icsMapper.getIcsBySerial(serial, DelFlag.UN_DELETED.getKey());
+        if (null == ics) {
+            throw new RuntimeException("ICS不存在");
+        }
+        if (WorkingState.OFF_LINE.getKey().equals(ics.getState())) {
+            throw new RuntimeException("ICS不在线,无法重启");
+        }
+        if (!IcsMsgUtil.icsChongQi(serial)) {
+            throw new RuntimeException("重启指令发送失败");
+        }
+    }
+
+    @Override
+    public void timingIcs(String serial) {
+        TbIcs ics = icsMapper.getIcsBySerial(serial, DelFlag.UN_DELETED.getKey());
+        if (null == ics) {
+            throw new RuntimeException("ICS不存在");
+        }
+        if (WorkingState.OFF_LINE.getKey().equals(ics.getState())) {
+            throw new RuntimeException("ICS不在线,无法校时");
+        }
+        if (!IcsMsgUtil.wangLuoJiaoShi(serial)) {
+            throw new RuntimeException("校时指令发送失败");
+        }
+    }
+
+    @Override
+    public void updateIcsState(String serial, String state) {
+        TbIcs ics = icsMapper.getIcsBySerial(serial, DelFlag.UN_DELETED.getKey());
+        if (null == ics) {
+            throw new RuntimeException("ICS不存在");
+        }
+        icsMapper.updateState(ics.getId(), state);
     }
 }

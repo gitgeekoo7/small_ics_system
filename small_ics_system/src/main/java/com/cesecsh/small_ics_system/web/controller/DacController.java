@@ -1,7 +1,6 @@
 package com.cesecsh.small_ics_system.web.controller;
 
 import com.cesecsh.small_ics_system.dto.TbDacDto;
-import com.cesecsh.small_ics_system.model.TbDac;
 import com.cesecsh.small_ics_system.query.DacQueryObject;
 import com.cesecsh.small_ics_system.service.IDacService;
 import com.cesecsh.small_ics_system.util.Result;
@@ -22,11 +21,11 @@ public class DacController {
     @Autowired
     private IDacService dacService;
 
-    @RequestMapping("/save")
-    public Result saveDac(@RequestBody TbDac dac) {
-        dacService.saveDac(dac);
-        return Result.success();
-    }
+//    @RequestMapping("/save")
+//    public Result saveDac(@RequestBody TbDac dac) {
+//        dacService.saveDac(dac);
+//        return Result.success();
+//    }
 
     @RequestMapping("/delete")
     public Result deleteDac(@RequestBody TbDacVo dac) {

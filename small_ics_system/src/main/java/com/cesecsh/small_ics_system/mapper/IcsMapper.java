@@ -53,4 +53,9 @@ public interface IcsMapper {
             "from tb_ics " +
             "where serial = #{serial} and del_flag = #{delFlag}")
     TbIcs getIcsBySerial(@Param("serial") String serial, @Param("delFlag") String delFlag);
+
+    @Update("update tb_ics " +
+            "set state = #{state} " +
+            "where id = #{id}")
+    void updateState(@Param("serial") String serial, @Param("state") String state);
 }

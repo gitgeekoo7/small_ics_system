@@ -8,4 +8,6 @@ import lombok.Setter;
 public class IcsQueryObject extends QueryObject {
     private String name;
     private String ip;
+
+    private String serial;
 }
